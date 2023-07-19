@@ -29,7 +29,7 @@ class Laporan extends Controller
         return view('laporan.jadwalbelajar.admin', $results);
     }
 
-    public function jadwalpdf(Request $request)
+    public function jadwalpdf()
     {
         $admin = DB::table('tb_jadwalbelajar as a')
             ->select('a.*', 'b.nm_guru', 'c.nm_mapel', 'd.nm_kelas', 'e.semester', 'f.thn_ajaran')
@@ -49,7 +49,7 @@ class Laporan extends Controller
         return $jadwalpdf->stream($admin . '.pdf');
     }
 
-    public function presensi(Request $request)
+    public function presensi()
     {
         if (!empty($_GET["tgl_dari"]) && !empty($_GET["tgl_sampai"]) && empty($_GET["keterangan"])) {
             $tanggal_mulai = $_GET["tgl_dari"];
