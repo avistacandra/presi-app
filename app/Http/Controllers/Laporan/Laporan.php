@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\tb_presensi;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use DateTime;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,7 @@ class Laporan extends Controller
             'url' => $url
         ];
         $jadwalpdf = PDF::loadView('laporan.pdf.jadwalbelajar.admin', compact('results', 'admin'))->setPaper('a4', 'portrait');
-        return $jadwalpdf->stream($admin . '.pdf');
+        return $jadwalpdf->stream('laporan-jadwal-belajar.pdf');
     }
 
     public function presensi()
@@ -334,7 +335,7 @@ class Laporan extends Controller
             'url' => $url
         ];
         $jadwalpdf = PDF::loadView('laporan.pdf.presensi.admin', compact('results', 'admin'))->setPaper('a4', 'portrait');
-        return $jadwalpdf->stream($admin . '.pdf');
+        return $jadwalpdf->stream('laporan-presensi.pdf');
     }
 
     public function ijinkeluar(Request $request)
@@ -367,7 +368,7 @@ class Laporan extends Controller
             'url' => $url
         ];
         $jadwalpdf = PDF::loadView('laporan.pdf.ijinkeluar.admin', compact('results', 'admin'))->setPaper('a4', 'portrait');
-        return $jadwalpdf->stream($admin . '.pdf');
+        return $jadwalpdf->stream('laporan-izin-keluar.pdf');
     }
 
     public function ijinmasuk(Request $request)
@@ -400,7 +401,7 @@ class Laporan extends Controller
             'url' => $url
         ];
         $jadwalpdf = PDF::loadView('laporan.pdf.ijinmasuk.admin', compact('results', 'admin'))->setPaper('a4', 'portrait');
-        return $jadwalpdf->stream($admin . '.pdf');
+        return $jadwalpdf->stream('laporan-izin-masuk.pdf');
     }
 
 
@@ -427,6 +428,6 @@ class Laporan extends Controller
         $jum = $data->count();
         $url = '/download-laporan-ijin-masuk-admin';
         $jadwalpdf = PDF::loadView('laporan.pdf.kehadiran', compact('data', 'jum'))->setPaper('a4', 'portrait');
-        return $jadwalpdf->stream($data, $jum . '.pdf');
+        return $jadwalpdf->stream($url . '.pdf');
     }
 }
